@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- log4j internal messages with level WARN or above only -->
+<!-- check the configuration file every 1 second -->
+<Configuration status="WARN" monitorInterval="1">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%highlight{%-4.4r %-5.5d{mm:ss} [%-15.15t] %-5.5level %-60.40logger{6.}.%-20.20M:%-4.4L - %msg}{STYLE=Logback}%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="ALL">
+			<AppenderRef ref="Console" />
+		</Root>
+
+		<Logger name="org.apache" additivity="false" level="WARN">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<Logger name="uk.co.jemos.podam" additivity="false" level="WARN">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<Logger name="org.hibernate" additivity="false" level="ERROR">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.crsh.plugin" additivity="false" level="WARN">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<Logger name="org.springframework" additivity="false" level="WARN">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<Logger name="org.springframework.context" additivity="false" level="WARN">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.springframework.web" additivity="false" level="WARN">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<Logger name="biz.daich.experiments.boot.metrics.code.SampleRest" additivity="false" level="DEBUG">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+
+
+	</Loggers>
+</Configuration>
