@@ -3,10 +3,11 @@
  */
 package experiment.pe.generator.code;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.urelay.posteverywhere.bean.load.PostLoad;
 
@@ -19,12 +20,36 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author boris
  *
  */
+
 public class GenLoadWithPadam implements IObjGen<PostLoad>
 {
 	private static final Logger				l			= LogManager.getLogger(GenLoadWithPadam.class.getName());
 
 	protected static final GenLoadWithPadam	instance	= new GenLoadWithPadam();
+	protected static final Random			R			= new Random();
 	protected PodamFactory					podamFactory;
+
+	public GenLoadWithPadam()
+	{
+		podamFactory = getPodamFactory();
+	}
+
+	public static final IObjGen<PostLoad> getInstance()
+	{
+		return instance;
+	}
+
+	/**
+	 * random integer in the range
+	 */
+	public static int randBetween(int start, int end)
+	{
+		if (end < start)
+		{
+			l.warn("end in less than start");
+		}
+		return start + R.nextInt(end - start);
+	}
 
 	public class CustomProviderStrategy extends AbstractRandomDataProviderStrategy
 	{
@@ -42,11 +67,6 @@ public class GenLoadWithPadam implements IObjGen<PostLoad>
 			}
 		}
 
-	}
-
-	public GenLoadWithPadam()
-	{
-		podamFactory = getPodamFactory();
 	}
 
 	protected PodamFactory getPodamFactory()
@@ -67,10 +87,4 @@ public class GenLoadWithPadam implements IObjGen<PostLoad>
 		return podamFactory.manufacturePojo(PostLoad.class);
 	}
 
-	public static void main(String[] args)
-	{
-		PostLoad p = GenLoadWithPadam.get();
-		l.debug(ReflectionToStringBuilder.toString(p, ToStringStyle.MULTI_LINE_STYLE));
-
-	}
 }

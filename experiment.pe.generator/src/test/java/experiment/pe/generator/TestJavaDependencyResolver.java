@@ -5,11 +5,13 @@ import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.boot.test.context.TestComponent;
 
 import com.urelay.announce.entities.BrokerLoad;
 
 import biz.daich.common.tools.jpa.JpaEntityDependencyResolver;
 
+@TestComponent
 public class TestJavaDependencyResolver
 {
 	static final Logger l = LogManager.getLogger(TestJavaDependencyResolver.class.getName());
